@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signal Board — Ops Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <header class="topbar">
+    <div>
+      <h1>Signal Board</h1>
+      <p class="live"><span class="pulse"></span> Simulated live · <time id="clock"></time></p>
+    </div>
+    <div class="thresholds">
+      <label>CPU alert &gt; <input type="number" id="th-cpu" value="85" min="50" max="99" />%</label>
+      <label>Errors &gt; <input type="number" id="th-err" value="12" min="1" max="100" />/min</label>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="cards">
+      <article class="stat" id="card-cpu">
+        <span class="label">CPU</span>
+        <span class="value" id="val-cpu">—</span>
+        <span class="delta" id="delta-cpu">—</span>
+      </article>
+      <article class="stat" id="card-req">
+        <span class="label">Requests/s</span>
+        <span class="value" id="val-req">—</span>
+        <span class="delta" id="delta-req">—</span>
+      </article>
+      <article class="stat" id="card-err">
+        <span class="label">Errors/min</span>
+        <span class="value" id="val-err">—</span>
+        <span class="delta" id="delta-err">—</span>
+      </article>
+      <article class="stat ok" id="card-status">
+        <span class="label">System</span>
+        <span class="value" id="val-status">Healthy</span>
+      </article>
+    </section>
+
+    <section class="charts">
+      <div class="chart-wrap"><canvas id="chart-cpu"></canvas></div>
+      <div class="chart-wrap"><canvas id="chart-req"></canvas></div>
+    </section>
+
+    <section class="incidents">
+      <h2>Incident log</h2>
+      <ul id="incident-log"></ul>
+    </section>
+  </main>
+
+  <footer>Crafted by <strong>Juliana Chantre Astudillo</strong></footer>
+  <script src="app.js"></script>
+</body>
+</html>

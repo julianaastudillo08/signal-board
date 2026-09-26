@@ -1,0 +1,206 @@
+:root {
+  --ink: #0c1218;
+  --panel: #111a22;
+  --teal: #2dd4bf;
+  --teal-dim: rgba(45, 212, 191, 0.15);
+  --warn: #fbbf24;
+  --danger: #f87171;
+  --text: #dbeafe;
+  --muted: #64748b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+  background: var(--ink);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--teal-dim) 1px, transparent 1px),
+    linear-gradient(90deg, var(--teal-dim) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 85%);
+  pointer-events: none;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(45, 212, 191, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+}
+
+.live {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pulse {
+  width: 8px;
+  height: 8px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+.thresholds {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.thresholds input {
+  width: 3rem;
+  background: var(--panel);
+  border: 1px solid rgba(45, 212, 191, 0.3);
+  color: var(--teal);
+  border-radius: 4px;
+  padding: 0.2rem;
+}
+
+.dashboard {
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem 2rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat {
+  background: linear-gradient(145deg, var(--panel), #0d151c);
+  border: 1px solid rgba(45, 212, 191, 0.12);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.stat.alert {
+  border-color: var(--danger);
+  box-shadow: 0 0 24px rgba(248, 113, 113, 0.2);
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.stat .label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.stat .value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: "IBM Plex Mono", monospace;
+  color: var(--teal);
+  margin-top: 0.25rem;
+}
+
+.stat .delta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .charts { grid-template-columns: 1fr; }
+}
+
+.chart-wrap {
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid rgba(45, 212, 191, 0.08);
+  height: 220px;
+}
+
+.incidents h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+#incident-log {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#incident-log li {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.8rem;
+  padding: 0.6rem 0.75rem;
+  border-left: 3px solid var(--teal);
+  background: rgba(17, 26, 34, 0.8);
+  margin-bottom: 0.35rem;
+  border-radius: 0 6px 6px 0;
+  animation: slideIn 0.35s ease;
+}
+
+#incident-log li.warn { border-color: var(--warn); }
+#incident-log li.crit { border-color: var(--danger); }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  position: relative;
+  z-index: 1;
+}
